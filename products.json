@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "title": "Camiseta",
+    "description": "Camiseta de algodón",
+    "code": "TS001",
+    "price": 20.99,
+    "status": true,
+    "stock": 50,
+    "category": "Ropa",
+    "thumbnails": [
+      "https://example.com/thumbnail1.jpg",
+      "https://example.com/thumbnail2.jpg"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Camiseta",
+    "description": "Camiseta de algodón",
+    "code": "TS001",
+    "price": 20.99,
+    "status": true,
+    "stock": 50,
+    "category": "Ropa",
+    "thumbnails": [
+      "https://example.com/thumbnail1.jpg",
+      "https://example.com/thumbnail2.jpg"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Camiseta",
+    "description": "Camiseta de algodón",
+    "code": "TS001",
+    "price": 20.99,
+    "status": true,
+    "stock": 50,
+    "category": "Ropa",
+    "thumbnails": [
+      "https://example.com/thumbnail1.jpg",
+      "https://example.com/thumbnail2.jpg"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Camiseta",
+    "description": "Camiseta de algodón",
+    "code": "TS001",
+    "price": 20.99,
+    "status": true,
+    "stock": 50,
+    "category": "Ropa",
+    "thumbnails": [
+      "https://example.com/thumbnail1.jpg",
+      "https://example.com/thumbnail2.jpg"
+    ]
+  }
+]
