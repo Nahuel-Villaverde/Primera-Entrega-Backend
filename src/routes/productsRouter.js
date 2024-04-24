@@ -1,21 +1,40 @@
 const express = require('express');
 const fs = require('fs');
+const path = require('path');
 const router = express.Router();
 
 let products = [];
 
 function guardarProductosEnArchivo() {
-    fs.writeFileSync('products.json', JSON.stringify(products, null, 2), 'utf-8');
+    const directory = path.join(__dirname, '..', 'data'); // Retroceder un nivel y luego entrar en la carpeta data
+
+
+
+    const filePath = path.join(directory, 'products.json');
+    fs.writeFileSync(filePath, JSON.stringify(products, null, 2), 'utf-8');
+}
+
+function cargarProductosDesdeArchivo() {
+    try {
+        const filePath = path.join(__dirname, '..', 'data', 'products.json');
+        const data = fs.readFileSync(filePath, 'utf-8');
+        return JSON.parse(data);
+    } catch (error) {
+        console.error('Error al cargar productos desde el archivo:', error);
+        return [];
+    }
 }
 
 router.get('/', (req, res) => {
-    res.json(products);
+    const productsData = cargarProductosDesdeArchivo();
+    res.json(productsData);
 });
 
 router.get('/:pid', (req, res) => {
     const productId = parseInt(req.params.pid);
+    const productsData = cargarProductosDesdeArchivo();
 
-    const producto = products.find(producto => producto.id === productId);
+    const producto = productsData.find(producto => producto.id === productId);
 
     if (!producto) {
         return res.status(404).json({ error: 'Producto no encontrado' });

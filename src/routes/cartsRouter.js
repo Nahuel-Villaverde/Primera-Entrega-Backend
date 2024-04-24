@@ -1,16 +1,20 @@
 const express = require('express');
 const fs = require('fs');
+const path = require('path');
 const router = express.Router();
 
 let carts = [];
 
 function guardarCarritosEnArchivo() {
-    fs.writeFileSync('carts.json', JSON.stringify(carts, null, 2), 'utf-8');
+    const directory = path.join(__dirname, '..', 'data'); // Retroceder un nivel y luego entrar en la carpeta data
+    const filePath = path.join(directory, 'carts.json');
+    fs.writeFileSync(filePath, JSON.stringify(carts, null, 2), 'utf-8');
 }
 
 function cargarProductosDesdeArchivo() {
     try {
-        const data = fs.readFileSync('products.json', 'utf-8');
+        const filePath = path.join(__dirname, '..', 'data', 'products.json');
+        const data = fs.readFileSync(filePath, 'utf-8');
         return JSON.parse(data);
     } catch (error) {
         console.error('Error al cargar productos desde el archivo:', error);
