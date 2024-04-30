@@ -1,33 +1,21 @@
-const express = require('express');
-const fs = require('fs');
-const path = require('path');
+import express from'express';
+
 const router = express.Router();
 
 let products = [];
 
-function guardarProductosEnArchivo() {
-    const directory = path.join(__dirname, '..', 'data'); // Retroceder un nivel y luego entrar en la carpeta data
+router.get('/', (req, res) => {
+    res.render('home', { products });
+});
 
+// Ruta GET para mostrar el formulario para agregar un producto
+router.get('/addProduct', (req, res) => {
+    res.render('index');
+});
 
-
-    const filePath = path.join(directory, 'products.json');
-    fs.writeFileSync(filePath, JSON.stringify(products, null, 2), 'utf-8');
-}
-
-function cargarProductosDesdeArchivo() {
-    try {
-        const filePath = path.join(__dirname, '..', 'data', 'products.json');
-        const data = fs.readFileSync(filePath, 'utf-8');
-        return JSON.parse(data);
-    } catch (error) {
-        console.error('Error al cargar productos desde el archivo:', error);
-        return [];
-    }
-}
 
 router.get('/', (req, res) => {
-    const productsData = cargarProductosDesdeArchivo();
-    res.json(productsData);
+    res.json(products);
 });
 
 router.get('/:pid', (req, res) => {
@@ -43,7 +31,7 @@ router.get('/:pid', (req, res) => {
     res.json(producto);
 });
 
-router.post('/', (req, res) => {
+router.post('/addProduct', (req, res) => {
 
     const { title, description, code, price, stock, category, thumbnails } = req.body;
 
@@ -67,9 +55,7 @@ router.post('/', (req, res) => {
 
     products.push(newProduct);
 
-    guardarProductosEnArchivo();
-
-    res.status(201).json(newProduct);
+    res.send('¡Producto registrado exitosamente!');
 });
 
 router.put('/:pid', (req, res) => {
@@ -81,9 +67,7 @@ router.put('/:pid', (req, res) => {
         return res.status(404).json({ error: 'Producto no encontrado' });
     }
 
-
     const { title, description, code, price, stock, category, thumbnails } = req.body;
-
 
     producto.title = title || producto.title;
     producto.description = description || producto.description;
@@ -92,8 +76,6 @@ router.put('/:pid', (req, res) => {
     producto.stock = stock || producto.stock;
     producto.category = category || producto.category;
     producto.thumbnails = thumbnails || producto.thumbnails;
-
-    guardarProductosEnArchivo();
 
     res.json(producto);
 });
@@ -109,9 +91,7 @@ router.delete('/:pid', (req, res) => {
 
     products.splice(index, 1);
 
-    guardarProductosEnArchivo();
-
     res.json({ message: 'Producto eliminado correctamente' });
 });
 
-module.exports = router;
+export default router;
