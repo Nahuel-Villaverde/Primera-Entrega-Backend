@@ -1,6 +1,6 @@
-import express from 'express';
-import fs from 'fs';
-import path from 'path';
+const express = require('express');
+const fs = require('fs');
+const path = require('path');
 const router = express.Router();
 
 let carts = [];
@@ -80,4 +80,4 @@ router.post('/:cid/product/:pid', (req, res) => {
     res.json(cart.products);
 });
 
-export default router;
+module.exports = router;
